@@ -2,34 +2,42 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import precision_recall_curve, auc
 import matplotlib.pyplot as plt
+import random
 
 #create AI class
 class AI:
     def decision(self, test_data, SetosaMeans, versicolourMeans):
-        setosa_score = 0
-        versicolour_score = 0
-        
-        total_score = 0
-        if (test_data.values[0] > SetosaMeans.values[0] - 0.3) and (test_data.values[0] < SetosaMeans.values[0] + 0.3):
-            setosa_score += 1
-        if (test_data.values[1] > SetosaMeans.values[1] - 0.3) and (test_data.values[1] < SetosaMeans.values[1] + 0.3):
-            setosa_score += 1
-        if (test_data.values[2] > SetosaMeans.values[2] - 0.3) and (test_data.values[2] < SetosaMeans.values[2] + 0.3):
-            setosa_score += 1
-        if (test_data.values[3] > SetosaMeans.values[3] - 0.3) and (test_data.values[3] < SetosaMeans.values[3] + 0.3):
-            setosa_score += 1
-        if (test_data.values[0] > versicolourMeans.values[0] - 0.3) and (test_data.values[0] < versicolourMeans.values[0] + 0.3):
-            versicolour_score += 1
-        if (test_data.values[1] > versicolourMeans.values[1] - 0.3) and (test_data.values[1] < versicolourMeans.values[1] + 0.3):
-            versicolour_score += 1
-        if (test_data.values[2] > versicolourMeans.values[2] - 0.3) and (test_data.values[2] < versicolourMeans.values[2] + 0.3):
-            versicolour_score += 1
-        if (test_data.values[3] > versicolourMeans.values[3] - 0.3) and (test_data.values[3] < versicolourMeans.values[3] + 0.3):
-            versicolour_score += 1
-        
+        setosa_total = 0
+        versicolour_total = 0
+        for x in  range (5):
+            setosa_score = 0
+            versicolour_score = 0
+            vector = random.randint(1,10)/10
+            total_score = 0
+            if (test_data.values[0] > SetosaMeans.values[0] - vector) and (test_data.values[0] < SetosaMeans.values[0] + vector):
+                setosa_score += 1
+            if (test_data.values[1] > SetosaMeans.values[1] - vector) and (test_data.values[1] < SetosaMeans.values[1] + vector):
+                setosa_score += 1
+            if (test_data.values[2] > SetosaMeans.values[2] - vector) and (test_data.values[2] < SetosaMeans.values[2] + vector):
+                setosa_score += 1
+            if (test_data.values[3] > SetosaMeans.values[3] - vector) and (test_data.values[3] < SetosaMeans.values[3] + vector):
+                setosa_score += 1
+            if (test_data.values[0] > versicolourMeans.values[0] - vector) and (test_data.values[0] < versicolourMeans.values[0] + vector):
+                versicolour_score += 1
+            if (test_data.values[1] > versicolourMeans.values[1] - vector) and (test_data.values[1] < versicolourMeans.values[1] + vector):
+                versicolour_score += 1
+            if (test_data.values[2] > versicolourMeans.values[2] - vector) and (test_data.values[2] < versicolourMeans.values[2] + vector):
+                versicolour_score += 1
+            if (test_data.values[3] > versicolourMeans.values[3] - vector) and (test_data.values[3] < versicolourMeans.values[3] + vector):
+                versicolour_score += 1
+            if setosa_score > 3:
+                setosa_total += 1
+            elif versicolour_score > 3:
+                versicolour_total += 1
+            
         #calculate probability of each plant
-        setosa_prob = setosa_score/4
-        versicolour_prob = versicolour_score/4
+        setosa_prob = setosa_total/4
+        versicolour_prob = versicolour_total/4
 
         if setosa_prob > 0.3:
             return("setosa", setosa_prob)
