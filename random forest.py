@@ -149,21 +149,6 @@ print (F1Score)
 
 
 
-#PRC
-# the following code has been taken from the "Session-4-Rule-Based-AI-Systems" powerpoint (Bath Spa University, "https://minerva.bathspa.ac.uk/ultra/courses/_137310_1/outline/file/_2168805_1")
-recall_array = [0.23333333333333334, 0.23333333333333334, 0.7666666666666667, 0.7666666666666667, 0.7666666666666667, 0.9333333333333333, 1.0, 1.0]
-precision_array = [1.0, 1.0, 1.0, 1.0, 1.0, 0.875, 0.6585365853658537, 0.6585365853658537]
 
-PR_auc = auc(recall_array, precision_array)
-
-plt.figure()
-plt.plot(precision, precision, color="b", lw=1, label='pr curve (area = %0.2f)' % PR_auc)
-plt.xlabel('recall')
-plt.ylabel('precision')
-plt.title('Precison Recall curve')
-plt.legend(loc='lower left')
-plt.show()
-
-print(f'PR AUC: {PR_auc:.2f}')
     
 
