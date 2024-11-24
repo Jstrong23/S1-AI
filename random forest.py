@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 #create AI class
 class AI:
-    def decision(self, test_data, SetosaMeans, virginicaMeans):
+    def decision(self, test_data, SetosaMeans, versicolourMeans):
         setosa_score = 0
         versicolour_score = 0
         
