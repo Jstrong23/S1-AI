@@ -3,15 +3,14 @@ import pandas as pd
 
 
 class AI:
-    def decision(self, test_data, SetosaMeans, versicolourMeans, virginicaMeans):
+    def decision(self, test_data, SetosaMeans, versicolourMeans):
         if (test_data.values[3] > SetosaMeans.values[3] - 0.5) and (test_data.values[3] < SetosaMeans.values[3] + 0.5):
-            return ("setosa")
-        elif (test_data.values[2] > virginicaMeans.values[2] - 0.3) and (test_data.values[2] < virginicaMeans.values[2] + 0.3):
-            return ("virginica")  
-        elif (test_data.values[0] > versicolourMeans.values[0] - 0.6) and (test_data.values[0] < versicolourMeans.values[0] + 0.6):
-            return ("versicolour")  
+            out = "setosa"
+        elif (test_data.values[0] > versicolourMeans.values[0] - 0.5) and (test_data.values[0] < versicolourMeans.values[0] + 0.5):
+            out = "versicolour" 
         else:
-            return ("undetermined")        
+             out = "undetermined"
+        return (out)
 
 
 #create instance of AI
@@ -59,18 +58,57 @@ virginicaMeans = virginica_train.mean()
 setosa_test = df.loc[35:49]
 versicolour_test = df.loc[75:99]
 virginica_test = df.loc[135:149]
+FP = 0
+FN = 0
+TP = 0
+TN = 0
+true_array = []
+score_array = []
 
 for x in range (45):
     i = x + 35
     test_data = setosa_test
+    test = "setosa"
     if x > 14:
+        test = "versicolour"
         i += 35
         test_data = versicolour_test
         if x > 29:
+            test = "virginica"
             i += 35
             test_data = virginica_test
-    output = ai.decision(test_data.loc[i], SetosaMeans, versicolourMeans, virginicaMeans)
+    
+    output = ai.decision(test_data.loc[i], SetosaMeans, versicolourMeans)
+    if output == test:
+        correct = "true"
+        TP += 1
+        true_array.append(1)
+    elif output == "undetermined" and test == "virginica":
+        correct = "true"
+        TN += 1
+        true_array.append(1)
+    elif output == "undetermined":
+        correct = "false"
+        FN += 1
+        true_array.append(0)
+    else:
+        correct = "false"
+        FP += 1
+        true_array.append(0)
     print (x, output)
 
-print (virginicaMeans)
-print (versicolourMeans)
+#accuracy
+accuracy = (TP+FN)/(TP+TN+FP+FN)
+print(accuracy)
+
+#precision
+precision = (TP)/(TP+FP)
+print(precision)
+
+#recall
+recall = (TP)/(TP+FN)
+print (recall)
+
+#F1 score
+F1Score = 2*((precision*recall)/(precision+recall))
+print (F1Score)
