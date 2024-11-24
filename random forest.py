@@ -1,6 +1,9 @@
 import pandas as pd
+import numpy as np
+from sklearn.metrics import precision_recall_curve, auc
+import matplotlib.pyplot as plt
 
-
+#create AI class
 class AI:
     def decision(self, test_data, SetosaMeans, versicolourMeans, virginicaMeans):
         setosa_score = 0
@@ -90,7 +93,10 @@ virginicaMeans = virginica_train.mean()
 setosa_test = df.loc[35:49]
 versicolour_test = df.loc[75:99]
 virginica_test = df.loc[135:149]
-
+FP = 0
+FN = 0
+TP = 0
+TN = 0
 for x in range (45):
     prob = 0
     test = "setosa"
@@ -110,5 +116,42 @@ for x in range (45):
     else:
         correct = "false"
     print (x, "---", output, "---",prob, "%", "---", correct)
+
+    #calcualate true positives, false positives, trua negatives and false negatives for performance metrics
+    if output == test:
+        TP += 1
+    elif output == "undetermined":
+        FN += 1
+    else:
+        FP += 1
+    
+#accuracy
+accuracy = (TP+FN)/(TP+TN+FP+FN)
+print(accuracy)
+
+#precision
+precision = (TP)/(TP+FP)
+print(precision)
+
+#recall
+recall = (TP)/(TP+FN)
+print (recall)
+
+#F1 score
+F1Score = 2*((precision*recall)/(precision+recall))
+print (F1Score)
+
+#PRC
+PR_auc = auc(recall, precision)
+
+plt.figure()
+plt.plot(recall, precision, color="b", lw=1, label='pr curve (area = %0.2f)' % PR_auc)
+plt.xlabel('recall')
+plt.ylabel('precision')
+plt.title('Precison Recall curve')
+plt.legend(loc='lower left')
+plt.show()
+
+print(f'PR AUC: {PR_auc:.2f}')
     
 
