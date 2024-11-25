@@ -3,6 +3,9 @@ import numpy as np
 from sklearn.metrics import precision_recall_curve, auc
 import matplotlib.pyplot as plt
 import random
+import time
+
+
 
 #create AI class
 class AI:
@@ -66,9 +69,10 @@ iris = fetch_ucirepo(id=53)
 # variable information 
 #print(iris.variables) 
 #---------------------------------------------This code was created to import the iris dataset (Fisher, 1936) into python by (UCI Machine Learning Repository, https://archive.ics.uci.edu/dataset/53/iris)
-
+start = time.time()
 #choose training data
 data = iris.data.features
+print(data)
 species = iris.data.targets
 df = pd.DataFrame(data)
 df_Target = pd.DataFrame(species)
@@ -135,6 +139,10 @@ for x in range (45):
 
     score_array.append(prob)
     print (x, "---", output, "---", prob, "---", correct)
+
+end = time.time()
+
+print (end - start)
 
     
     

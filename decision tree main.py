@@ -1,5 +1,6 @@
 
 import pandas as pd
+import time 
 
 
 class AI:
@@ -31,7 +32,7 @@ y = iris.data.targets
 # variable information 
 #print(iris.variables) 
 #---------------------------------------------This code was created to import the iris dataset (Fisher, 1936) into python by (UCI Machine Learning Repository,https://archive.ics.uci.edu/dataset/53/iris)
-
+start = time.time()
 #choose training data
 data = iris.data.features
 species = iris.data.targets
@@ -96,6 +97,9 @@ for x in range (45):
         FP += 1
         true_array.append(0)
     print (x, output)
+
+end = time.time()
+print (end - start)
 
 #accuracy
 accuracy = (TP+FN)/(TP+TN+FP+FN)
